@@ -1,10 +1,3 @@
-############### Blackjack Project #####################
-
-#Difficulty Normal 😎: Use all Hints below to complete the project.
-#Difficulty Hard 🤔: Use only Hints 1, 2, 3 to complete the project.
-#Difficulty Extra Hard 😭: Only use Hints 1 & 2 to complete the project.
-#Difficulty Expert 🤯: Only use Hint 1 to complete the project.
-
 ############### Our Blackjack House Rules #####################
 
 ## The deck is unlimited in size. 
@@ -31,9 +24,15 @@
 #Hint 3: Download and read this flow chart I've created: 
 #   https://drive.google.com/uc?export=download&id=1rDkiHCrhaf9eX7u7yjM1qwSuyEk-rPnt
 
+import random
 #Hint 4: Create a deal_card() function that uses the List below to *return* a random card.
 #11 is the Ace.
 #cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+def deal_card():
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    return random.choice(cards)
+
+
 
 #Hint 5: Deal the user and computer 2 cards each using deal_card() and append().
 #user_cards = []
@@ -59,3 +58,6 @@
 
 #Hint 14: Ask the user if they want to restart the game. If they answer yes, clear the console and start a new game of blackjack and show the logo from art.py.
 
+if __name__ == '__main__':
+    card = deal_card()
+    print(card)
