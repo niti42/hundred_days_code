@@ -9,6 +9,7 @@ class Ball(Turtle):
         self.penup()
         self.x_move = 10
         self.y_move = 10
+        self.move_speed = 0.09
 
     def move(self):
         # Change the number of steps to change the speed of the ball.
@@ -21,10 +22,11 @@ class Ball(Turtle):
 
     def bounce_x(self):
         self.x_move *= -1
+        self.move_speed *= 0.9
 
-    def reset(self):
+    def reset_position(self):
         # Change the number of steps to change the speed of the ball.
         self.goto(0, 0)
-        self.x_move *= -1
-        self.y_move *= -1
+        self.bounce_x()
+        self.move_speed = 0.1
 
