@@ -25,11 +25,19 @@ if __name__ == "__main__":
     while game_is_on:
         screen.update()
         # Change the refresh rate to change the speed of the ball.
-        time.sleep(0.3)
-
+        time.sleep(0.1)
         ball.move()
+        # Detect collision with walls
+        if ball.ycor() > 280 or ball.ycor() < -280:
+            ball.bounce_y()
+        # Detect collision with the paddle
+        if(ball.distance(r_paddle) < 50) and (ball.xcor() > 320) or  (ball.distance(l_paddle) < 50) and (ball.xcor() < -320):
+            ball.bounce_x()
 
-        if ball.ycor() > 295:
-            ball.reflect_down()
+        # Detect when a player misses the ball
+        # It has to go to the center of  the table and to be served in the opposite direction
+        if ball.xcor() > 400 or ball.xcor() < -400:
+            print("miss the ball")
+            ball.reset()
 
     screen.exitonclick()
