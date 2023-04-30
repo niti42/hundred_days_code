@@ -27,7 +27,7 @@ if __name__ == "__main__":
     is_game_on = True
     while is_game_on:
         screen.update()
-        time.sleep(0.1)
+        timer.sleep(0.1)
         # move snake
         snake.move()
 

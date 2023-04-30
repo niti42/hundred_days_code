@@ -26,7 +26,7 @@ if __name__ == "__main__":
     while game_is_on:
         screen.update()
         # Change the refresh rate to change the speed of the ball.
-        time.sleep(ball.move_speed)
+        timer.sleep(ball.move_speed)
         ball.move()
         # Detect collision with walls
         if ball.ycor() > 280 or ball.ycor() < -280:
