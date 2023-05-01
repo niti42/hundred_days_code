@@ -1,6 +1,5 @@
 from tkinter import *
 
-
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -15,56 +14,55 @@ ticks = "✔"
 timer = ""
 
 
+# ---------------------------- TIMER RESET ------------------------------- #
+
+def reset_timer():
+    window.after_cancel(timer)
+    canvas.itemconfig(timer_text, text="00:00")
+    title_label.config(text="Timer")
+    tick.config(text="")
+    global ticks, reps
+    ticks = "✔"
+    reps = 0
+
+
+# ---------------------------- TIMER MECHANISM ------------------------------- #
+def start_timer():
+    global reps
+    reps += 1
+    work_sec = WORK_MIN * 60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
+
+    if reps % 8 == 0:
+        title_label.config(text="Break", fg=RED)
+        count_down(long_break_sec)  # long break at 8th rep
+    elif reps % 2 == 0:
+        title_label.config(text="Break", fg=PINK)
+        count_down(short_break_sec)  # short breaks at 2nd, 4th and 6th rep
+    else:
+        title_label.config(text="Work", fg=GREEN)
+        count_down(work_sec)  # work time at 1st, 3rd, 5th rep
+
+
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
+def count_down(count):
+    count_min = count // 60
+    count_sec = count % 60
+    global ticks, timer
+    if count_sec < 10:
+        count_sec = f"0{count_sec}"
+    canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
+    if count > 0:
+        timer = window.after(1000, count_down, count - 1)
+    else:
+        start_timer()
+        if reps % 2 == 1:
+            tick.config(text=f"{ticks}")
+            ticks += "✔"
+
 
 if __name__ == "__main__":
-    # ---------------------------- TIMER RESET ------------------------------- #
-
-    def reset_timer():
-        window.after_cancel(timer)
-        canvas.itemconfig(timer_text, text="00:00")
-        title_label.config(text="Timer")
-        tick.config(text="")
-        global ticks, reps
-        ticks = "✔"
-        reps = 0
-
-    # ---------------------------- TIMER MECHANISM ------------------------------- #
-    def start_timer():
-        global reps
-        reps += 1
-        work_sec = WORK_MIN*60
-        short_break_sec = SHORT_BREAK_MIN*60
-        long_break_sec = LONG_BREAK_MIN*60
-
-        if reps % 8 == 0:
-            title_label.config(text="Break", fg=RED)
-            count_down(long_break_sec)  # long break at 8th rep
-        elif reps % 2 == 0:
-            title_label.config(text="Break",  fg=PINK)
-            count_down(short_break_sec)  # short breaks at 2nd, 4th and 6th rep
-        else:
-            title_label.config(text="Work",  fg=GREEN)
-            count_down(work_sec)  # work time at 1st, 3rd, 5th rep
-
-
-    # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
-    def count_down(count):
-        count_min = count // 60
-        count_sec = count % 60
-        global ticks, timer
-        if count_sec < 10:
-            count_sec = f"0{count_sec}"
-        canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
-        if count > 0:
-            timer = window.after(1000, count_down, count - 1)
-        else:
-            start_timer()
-            if reps % 2 == 1:
-                tick.config(text=f"{ticks}")
-                ticks += "✔"
-
-
-
     # ---------------------------- UI SETUP ------------------------------- #
     window = Tk()
     window.title("Pomodoro")
