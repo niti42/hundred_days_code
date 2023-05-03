@@ -10,7 +10,7 @@ def generate_phonetic():
     try:
         word_nato_code = [nato_code[letter] for letter in word_to_spell]
     except KeyError:
-        print("Sorry, the word to spell must only contain letters in the english alphabet!")
+        print("Sorry, the word to spell must only contain letters in the English alphabet!")
         generate_phonetic()
     else:
         print(word_nato_code)
