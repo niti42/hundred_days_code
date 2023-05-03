@@ -63,20 +63,22 @@ def save():
         password_entry.delete(0, END)
 
 
+# ---------------------------- FIND PASSWORD ------------------------------- #
 def find_password():
     website_name = website_name_entry.get()
     try:
         with open("data.json", "r") as file:
             data = json.load(file)
-
-        messagebox.showinfo(title=website_name, message=f"Email/Username: {data[website_name]['user_name']}\n"
-                                                        f"Password: {data[website_name]['password']}")
     except FileNotFoundError:
         messagebox.showerror(title="File Not Found",
                              message="No Data File Found")
-    except KeyError:
-        messagebox.showerror(title="Website Not Found",
-                             message="No Details for the website exists")
+    else:
+        if website_name in data:
+            messagebox.showinfo(title=website_name, message=f"Email/Username: {data[website_name]['user_name']}\n"
+                                                            f"Password: {data[website_name]['password']}")
+        else:
+            messagebox.showerror(title="Website Not Found",
+                                 message="No Details for the website exists")
 
 
 if __name__ == "__main__":
@@ -107,7 +109,7 @@ if __name__ == "__main__":
     # Text box:
     # Entry for Website
     website_name_entry = Entry(width=34)
-    website_name_entry.grid(column=1, row=1, columnspan=2, sticky='w')
+    website_name_entry.grid(column=1, row=1, sticky='w')
     website_name_entry.focus()  # To get the cursor on the first textbox the user needs to type.
 
     # Entry for Email/Username
